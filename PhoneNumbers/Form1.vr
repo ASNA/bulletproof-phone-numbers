@@ -1,4 +1,5 @@
-﻿// The core concept used here is that the user can enter a telephone number 
+﻿
+// The core concept used here is that the user can enter a telephone number 
 // in _any_ format. The only restriction is that the characters entered 
 // must contain a minimum number of digits (10 is the default minimum characters
 // allowed).
