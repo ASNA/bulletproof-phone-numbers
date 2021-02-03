@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>PhoneNumberParser.vr</title>
+  <link rel="stylesheet" href="..\pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div class='section'>
+    <div class='docs'><h1>PhoneNumberParser.vr</h1></div>
+  </div>
+  <div class='clearall'>
+  <div class='section' id='section-0'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-0'>#</a>
+      </div>
+      
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre><span></span><span class="nx">Using</span> <span class="nx">System</span>
+<span class="nx">Using</span> <span class="nx">System</span><span class="p">.</span><span class="nx">Text</span><span class="p">.</span><span class="nx">RegularExpressions</span>
+
+<span class="nx">BegClass</span> <span class="nx">PhoneNumberParser</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-1'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-1'>#</a>
+      </div>
+      <p>A class to parse a phone number entered with <em>any</em> format.
+The default minimum digits is 10. </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="nx">DclProp</span> <span class="nx">PhoneNumberAsString</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span>
+    <span class="nx">DclProp</span> <span class="nx">DigitsOnly</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> 
+    <span class="nx">DclProp</span> <span class="nx">Extension</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nx">Integer4</span><span class="p">)</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span>
+    <span class="nx">DclProp</span> <span class="nx">FormattedPhoneNumber</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> 
+    <span class="nx">DclProp</span> <span class="nx">InputFormatError</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">Boolean</span><span class="p">)</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span>
+    <span class="nx">DclProp</span> <span class="nx">OutputFormatWithoutExtension</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> 
+    <span class="nx">DclProp</span> <span class="nx">OutputFormatWithExtension</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> 
+    <span class="nx">DclProp</span> <span class="nx">MinimumDigitsLength</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nx">Integer4</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-2'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      <p>Note&ndash;these are convenience fields for American phone numbers only. 
+These apply mostly to Mexico, US and its territories, and Candada.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="nx">DclProp</span> <span class="nx">AreaCode</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nx">Integer4</span><span class="p">)</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span>
+    <span class="nx">DclProp</span> <span class="nx">Exchange</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nx">Integer4</span><span class="p">)</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span>
+    <span class="nx">DclProp</span> <span class="nx">Subscriber</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nx">Integer4</span><span class="p">)</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span>
+
+    <span class="nx">DclConst</span> <span class="nx">DEFAULT_OUTPUT_FORMAT_WITHOUT_EXTENSION</span> <span class="s1">&#39;{0:(###)} {1:###}-{2:####}&#39;</span>
+    <span class="nx">DclConst</span> <span class="nx">DEFAULT_OUTPUT_FORMAT_WITH_EXTENSION</span> <span class="s1">&#39;{0:(###)} {1:###}-{2:####} Ext. {3}&#39;</span>
+    <span class="nx">DclConst</span> <span class="nx">NORTH_AMERICAN_MINIMUM_DIGITS</span> <span class="mf">10</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
+      </div>
+      <p>Default constructor. </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="nx">BegConstructor</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> 
+        <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">OutputFormatWithoutExtension</span> <span class="o">=</span> <span class="nx">DEFAULT_OUTPUT_FORMAT_WITHOUT_EXTENSION</span>
+        <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">OutputFormatWithExtension</span> <span class="o">=</span> <span class="nx">DEFAULT_OUTPUT_FORMAT_WITH_EXTENSION</span>
+        <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">MinimumDigitsLength</span> <span class="o">=</span> <span class="nx">NORTH_AMERICAN_MINIMUM_DIGITS</span> 
+    <span class="nx">EndConstructor</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-4'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-4'>#</a>
+      </div>
+      <p>Override output formats. </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="nx">BegConstructor</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> 
+        <span class="nx">DclSrParm</span> <span class="nx">OutputFormatWithoutExtension</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> 
+        <span class="nx">DclSrParm</span> <span class="nx">OutputFormatWithExtension</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> 
+
+        <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">OutputFormatWithoutExtension</span> <span class="o">=</span> <span class="nx">OutputFormatWithoutExtension</span>
+        <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">OutputFormatWithExtension</span> <span class="o">=</span> <span class="nx">OutputFormatWithExtension</span> 
+    <span class="nx">EndConstructor</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-5'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-5'>#</a>
+      </div>
+      <p>Override output formats and minimum digits length.</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="nx">BegConstructor</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> 
+        <span class="nx">DclSrParm</span> <span class="nx">OutputFormatWithoutExtension</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> 
+        <span class="nx">DclSrParm</span> <span class="nx">OutputFormatWithExtension</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> 
+        <span class="nx">DclSrParm</span> <span class="nx">MinimumDigitsLength</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nx">Integer4</span><span class="p">)</span> 
+
+        <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">OutputFormatWithoutExtension</span> <span class="o">=</span> <span class="nx">OutputFormatWithoutExtension</span>
+        <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">OutputFormatWithExtension</span> <span class="o">=</span> <span class="nx">OutputFormatWithExtension</span> 
+        <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">MinimumDigitsLength</span> <span class="o">=</span> <span class="nx">MinimumDigitsLength</span>        
+    <span class="nx">EndConstructor</span> 
+    
+    <span class="nx">BegFunc</span> <span class="nx">RemoveNonDigitsFromString</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> 
+        <span class="nx">DclSrParm</span> <span class="nx">InputString</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> 
+
+        <span class="nx">LeaveSr</span> <span class="nx">Regex</span><span class="p">.</span><span class="nx">Replace</span><span class="p">(</span><span class="nx">InputString</span><span class="p">,</span> <span class="s1">&#39;\D&#39;</span><span class="p">,</span> <span class="nb">String</span><span class="p">.</span><span class="nx">Empty</span><span class="p">)</span> 
+    <span class="nx">EndFunc</span> 
+
+    <span class="nx">BegSr</span> <span class="nx">ParsePhoneNumber</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> 
+        <span class="nx">DclSrParm</span> <span class="nx">PhoneNumberAsEntered</span> <span class="nx">Type</span><span class="p">(</span><span class="o">*</span><span class="nb">String</span><span class="p">)</span> 
+
+        <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">InputFormatError</span> <span class="o">=</span> <span class="o">*</span><span class="nx">False</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-6'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-6'>#</a>
+      </div>
+      <p>Note how the process of removing non-digits was moved to a function. 
+This makes the code self-documenting. At least 75% when you write a 
+comment you should be writing a routine! </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">DigitsOnly</span> <span class="o">=</span> <span class="nx">RemoveNonDigitsFromString</span><span class="p">(</span><span class="nx">PhoneNumberAsEntered</span><span class="p">)</span>
+        <span class="nx">If</span> <span class="nx">DigitsOnly</span><span class="p">.</span><span class="nx">Length</span> <span class="o">&lt;</span> <span class="mf">10</span> 
+            <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">InputFormatError</span> <span class="o">=</span> <span class="o">*</span><span class="nx">True</span> 
+            <span class="nx">LeaveSr</span> 
+        <span class="nx">EndIf</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-7'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-7'>#</a>
+      </div>
+      <p>Note&ndash;these are convenience fields for American phone numbers only. </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">AreaCode</span> <span class="o">=</span> <span class="nx">DigitsOnly</span><span class="p">.</span><span class="nx">Substring</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="mf">3</span><span class="p">)</span>
+        <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">Exchange</span> <span class="o">=</span> <span class="nx">DigitsOnly</span><span class="p">.</span><span class="nx">Substring</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span><span class="mf">3</span><span class="p">)</span>
+        <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">SubScriber</span> <span class="o">=</span> <span class="nx">DigitsOnly</span><span class="p">.</span><span class="nx">Substring</span><span class="p">(</span><span class="mf">6</span><span class="p">,</span><span class="mf">4</span><span class="p">)</span> 
+        
+        <span class="nx">If</span> <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">DigitsOnly</span> <span class="o">&gt;</span> <span class="mf">10</span>         
+            <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">Extension</span> <span class="o">=</span> <span class="nx">DigitsOnly</span><span class="p">.</span><span class="nx">Substring</span><span class="p">(</span><span class="mf">10</span><span class="p">)</span> 
+            <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">FormattedPhoneNumber</span> <span class="o">=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">Format</span><span class="p">(</span><span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">OutputFormatWithExtension</span><span class="p">,</span> <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">AreaCode</span><span class="p">,</span> <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">Exchange</span><span class="p">,</span> <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">Subscriber</span><span class="p">,</span> <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">Extension</span><span class="p">)</span> 
+        <span class="nx">Else</span> 
+            <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">FormattedPhoneNumber</span> <span class="o">=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">Format</span><span class="p">(</span><span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">OutputFormatWithoutExtension</span><span class="p">,</span> <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">AreaCode</span><span class="p">,</span> <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">Exchange</span><span class="p">,</span> <span class="o">*</span><span class="nx">This</span><span class="p">.</span><span class="nx">Subscriber</span><span class="p">)</span> 
+        <span class="nx">EndIf</span> 
+    <span class="nx">EndSr</span>
+
+
+<span class="nx">EndClass</span>
+
+</pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+</div>
+</body>
