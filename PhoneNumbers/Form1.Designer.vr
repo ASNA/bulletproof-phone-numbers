@@ -1,0 +1,343 @@
+﻿BegClass Form1 Partial(*Yes)
+
+	// Required method for Designer support - do not modify
+	// the contents of this method with the code editor.
+	BegSr InitializeComponent
+		*this.textboxPhoneNumber = *new System.Windows.Forms.TextBox()
+		*this.label1 = *new System.Windows.Forms.Label()
+		*this.buttonFormatPhoneNumber = *new System.Windows.Forms.Button()
+		*this.label2 = *new System.Windows.Forms.Label()
+		*this.label3 = *new System.Windows.Forms.Label()
+		*this.textboxAreaCode = *new System.Windows.Forms.TextBox()
+		*this.label4 = *new System.Windows.Forms.Label()
+		*this.textboxExchange = *new System.Windows.Forms.TextBox()
+		*this.label5 = *new System.Windows.Forms.Label()
+		*this.textboxSubscriber = *new System.Windows.Forms.TextBox()
+		*this.label6 = *new System.Windows.Forms.Label()
+		*this.textboxDigitsOnly = *new System.Windows.Forms.TextBox()
+		*this.label7 = *new System.Windows.Forms.Label()
+		*this.textboxExtension = *new System.Windows.Forms.TextBox()
+		*this.label8 = *new System.Windows.Forms.Label()
+		*this.textboxFormatWithoutExtension = *new System.Windows.Forms.TextBox()
+		*this.label9 = *new System.Windows.Forms.Label()
+		*this.label10 = *new System.Windows.Forms.Label()
+		*this.textboxFormatWithExtension = *new System.Windows.Forms.TextBox()
+		*this.label11 = *new System.Windows.Forms.Label()
+		*this.labelErrorMessage = *new System.Windows.Forms.Label()
+		*this.label12 = *new System.Windows.Forms.Label()
+		*this.textboxFormattedPhoneNumber = *new System.Windows.Forms.TextBox()
+		*this.label13 = *new System.Windows.Forms.Label()
+		*this.label14 = *new System.Windows.Forms.Label()
+		*this.panelParsedData = *new System.Windows.Forms.Panel()
+		*this.panelParsedData.SuspendLayout()
+		*this.SuspendLayout()
+		//
+		//textboxPhoneNumber
+		//
+		*this.textboxPhoneNumber.Location = *new System.Drawing.Point(302I, 122I)
+		*this.textboxPhoneNumber.Name = "textboxPhoneNumber"
+		*this.textboxPhoneNumber.Size = *new System.Drawing.Size(476I, 35I)
+		*this.textboxPhoneNumber.TabIndex = 0I
+		//
+		//label1
+		//
+		*this.label1.AutoSize = *True
+		*this.label1.Location = *new System.Drawing.Point(71I, 128I)
+		*this.label1.Name = "label1"
+		*this.label1.Size = *new System.Drawing.Size(171I, 29I)
+		*this.label1.TabIndex = 1I
+		*this.label1.Text = "Phone number"
+		//
+		//buttonFormatPhoneNumber
+		//
+		*this.buttonFormatPhoneNumber.Location = *new System.Drawing.Point(361I, 269I)
+		*this.buttonFormatPhoneNumber.Name = "buttonFormatPhoneNumber"
+		*this.buttonFormatPhoneNumber.Size = *new System.Drawing.Size(278I, 78I)
+		*this.buttonFormatPhoneNumber.TabIndex = 2I
+		*this.buttonFormatPhoneNumber.Text = "Parse phone number"
+		*this.buttonFormatPhoneNumber.UseVisualStyleBackColor = *True
+		//
+		//label2
+		//
+		*this.label2.AutoSize = *True
+		*this.label2.Font = *new System.Drawing.Font("Microsoft Sans Serif", 10, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.label2.Location = *new System.Drawing.Point(71I, 171I)
+		*this.label2.Name = "label2"
+		*this.label2.Size = *new System.Drawing.Size(859I, 25I)
+		*this.label2.TabIndex = 3I
+		*this.label2.Text = "Phone number must have at least 10 digits. Anything after 10 digits is assumed to be an extension."
+		//
+		//label3
+		//
+		*this.label3.AutoSize = *True
+		*this.label3.Location = *new System.Drawing.Point(235I, 256I)
+		*this.label3.Name = "label3"
+		*this.label3.Size = *new System.Drawing.Size(128I, 29I)
+		*this.label3.TabIndex = 5I
+		*this.label3.Text = "Area Code"
+		//
+		//textboxAreaCode
+		//
+		*this.textboxAreaCode.Location = *new System.Drawing.Point(369I, 253I)
+		*this.textboxAreaCode.Name = "textboxAreaCode"
+		*this.textboxAreaCode.Size = *new System.Drawing.Size(262I, 35I)
+		*this.textboxAreaCode.TabIndex = 4I
+		//
+		//label4
+		//
+		*this.label4.AutoSize = *True
+		*this.label4.Location = *new System.Drawing.Point(244I, 297I)
+		*this.label4.Name = "label4"
+		*this.label4.Size = *new System.Drawing.Size(119I, 29I)
+		*this.label4.TabIndex = 7I
+		*this.label4.Text = "Exchange"
+		//
+		//textboxExchange
+		//
+		*this.textboxExchange.Location = *new System.Drawing.Point(369I, 294I)
+		*this.textboxExchange.Name = "textboxExchange"
+		*this.textboxExchange.Size = *new System.Drawing.Size(262I, 35I)
+		*this.textboxExchange.TabIndex = 6I
+		//
+		//label5
+		//
+		*this.label5.AutoSize = *True
+		*this.label5.Location = *new System.Drawing.Point(233I, 338I)
+		*this.label5.Name = "label5"
+		*this.label5.Size = *new System.Drawing.Size(130I, 29I)
+		*this.label5.TabIndex = 9I
+		*this.label5.Text = "Subscriber"
+		//
+		//textboxSubscriber
+		//
+		*this.textboxSubscriber.Location = *new System.Drawing.Point(369I, 335I)
+		*this.textboxSubscriber.Name = "textboxSubscriber"
+		*this.textboxSubscriber.Size = *new System.Drawing.Size(262I, 35I)
+		*this.textboxSubscriber.TabIndex = 8I
+		//
+		//label6
+		//
+		*this.label6.AutoSize = *True
+		*this.label6.Location = *new System.Drawing.Point(78I, 215I)
+		*this.label6.Name = "label6"
+		*this.label6.Size = *new System.Drawing.Size(285I, 29I)
+		*this.label6.TabIndex = 11I
+		*this.label6.Text = "Phone number digits only"
+		//
+		//textboxDigitsOnly
+		//
+		*this.textboxDigitsOnly.Location = *new System.Drawing.Point(369I, 212I)
+		*this.textboxDigitsOnly.Name = "textboxDigitsOnly"
+		*this.textboxDigitsOnly.Size = *new System.Drawing.Size(521I, 35I)
+		*this.textboxDigitsOnly.TabIndex = 10I
+		//
+		//label7
+		//
+		*this.label7.AutoSize = *True
+		*this.label7.Location = *new System.Drawing.Point(245I, 382I)
+		*this.label7.Name = "label7"
+		*this.label7.Size = *new System.Drawing.Size(118I, 29I)
+		*this.label7.TabIndex = 13I
+		*this.label7.Text = "Extension"
+		//
+		//textboxExtension
+		//
+		*this.textboxExtension.Location = *new System.Drawing.Point(369I, 376I)
+		*this.textboxExtension.Name = "textboxExtension"
+		*this.textboxExtension.Size = *new System.Drawing.Size(262I, 35I)
+		*this.textboxExtension.TabIndex = 12I
+		//
+		//label8
+		//
+		*this.label8.AutoSize = *True
+		*this.label8.Font = *new System.Drawing.Font("Microsoft Sans Serif", 12, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.label8.Location = *new System.Drawing.Point(22I, 28I)
+		*this.label8.Name = "label8"
+		*this.label8.Size = *new System.Drawing.Size(192I, 29I)
+		*this.label8.TabIndex = 15I
+		*this.label8.Text = "Display formats"
+		//
+		//textboxFormatWithoutExtension
+		//
+		*this.textboxFormatWithoutExtension.Font = *new System.Drawing.Font("Consolas", 12, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.textboxFormatWithoutExtension.Location = *new System.Drawing.Point(369I, 70I)
+		*this.textboxFormatWithoutExtension.Name = "textboxFormatWithoutExtension"
+		*this.textboxFormatWithoutExtension.Size = *new System.Drawing.Size(521I, 36I)
+		*this.textboxFormatWithoutExtension.TabIndex = 14I
+		*this.textboxFormatWithoutExtension.Text = "{0:(###)} {1:###}-{2:####}"
+		//
+		//label9
+		//
+		*this.label9.AutoSize = *True
+		*this.label9.Location = *new System.Drawing.Point(144I, 73I)
+		*this.label9.Name = "label9"
+		*this.label9.Size = *new System.Drawing.Size(202I, 29I)
+		*this.label9.TabIndex = 16I
+		*this.label9.Text = "Without extension"
+		//
+		//label10
+		//
+		*this.label10.AutoSize = *True
+		*this.label10.Location = *new System.Drawing.Point(144I, 114I)
+		*this.label10.Name = "label10"
+		*this.label10.Size = *new System.Drawing.Size(169I, 29I)
+		*this.label10.TabIndex = 18I
+		*this.label10.Text = "With extension"
+		//
+		//textboxFormatWithExtension
+		//
+		*this.textboxFormatWithExtension.Font = *new System.Drawing.Font("Consolas", 12, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.textboxFormatWithExtension.Location = *new System.Drawing.Point(369I, 111I)
+		*this.textboxFormatWithExtension.Name = "textboxFormatWithExtension"
+		*this.textboxFormatWithExtension.Size = *new System.Drawing.Size(521I, 36I)
+		*this.textboxFormatWithExtension.TabIndex = 17I
+		*this.textboxFormatWithExtension.Text = "{0:(###)} {1:###}-{2:####} Ext. {3}"
+		//
+		//label11
+		//
+		*this.label11.AutoSize = *True
+		*this.label11.Font = *new System.Drawing.Font("Microsoft Sans Serif", 12, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.label11.Location = *new System.Drawing.Point(22I, 176I)
+		*this.label11.Name = "label11"
+		*this.label11.Size = *new System.Drawing.Size(167I, 29I)
+		*this.label11.TabIndex = 19I
+		*this.label11.Text = "Parsed fields"
+		//
+		//labelErrorMessage
+		//
+		*this.labelErrorMessage.AutoSize = *True
+		*this.labelErrorMessage.Font = *new System.Drawing.Font("Microsoft Sans Serif", 10, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.labelErrorMessage.ForeColor = System.Drawing.Color.Red
+		*this.labelErrorMessage.Location = *new System.Drawing.Point(71I, 208I)
+		*this.labelErrorMessage.Name = "labelErrorMessage"
+		*this.labelErrorMessage.Size = *new System.Drawing.Size(368I, 25I)
+		*this.labelErrorMessage.TabIndex = 20I
+		*this.labelErrorMessage.Text = "Phone number must have at last 10 digits"
+		*this.labelErrorMessage.Visible = *False
+		//
+		//label12
+		//
+		*this.label12.AutoSize = *True
+		*this.label12.Location = *new System.Drawing.Point(78I, 473I)
+		*this.label12.Name = "label12"
+		*this.label12.Size = *new System.Drawing.Size(285I, 29I)
+		*this.label12.TabIndex = 22I
+		*this.label12.Text = "Formatted phone number"
+		//
+		//textboxFormattedPhoneNumber
+		//
+		*this.textboxFormattedPhoneNumber.Location = *new System.Drawing.Point(369I, 470I)
+		*this.textboxFormattedPhoneNumber.Name = "textboxFormattedPhoneNumber"
+		*this.textboxFormattedPhoneNumber.Size = *new System.Drawing.Size(521I, 35I)
+		*this.textboxFormattedPhoneNumber.TabIndex = 21I
+		//
+		//label13
+		//
+		*this.label13.AutoSize = *True
+		*this.label13.Font = *new System.Drawing.Font("Microsoft Sans Serif", 12, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.label13.Location = *new System.Drawing.Point(22I, 431I)
+		*this.label13.Name = "label13"
+		*this.label13.Size = *new System.Drawing.Size(471I, 29I)
+		*this.label13.TabIndex = 23I
+		*this.label13.Text = "Formatted number for display purposes"
+		//
+		//label14
+		//
+		*this.label14.AutoSize = *True
+		*this.label14.Font = *new System.Drawing.Font("Microsoft Sans Serif", 14, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.label14.Location = *new System.Drawing.Point(296I, 19I)
+		*this.label14.Name = "label14"
+		*this.label14.Size = *new System.Drawing.Size(423I, 32I)
+		*this.label14.TabIndex = 24I
+		*this.label14.Text = "Bulletproof Phone Number Entry"
+		//
+		//panelParsedData
+		//
+		*this.panelParsedData.Controls.Add(*this.textboxAreaCode)
+		*this.panelParsedData.Controls.Add(*this.label3)
+		*this.panelParsedData.Controls.Add(*this.label13)
+		*this.panelParsedData.Controls.Add(*this.textboxExchange)
+		*this.panelParsedData.Controls.Add(*this.label12)
+		*this.panelParsedData.Controls.Add(*this.label4)
+		*this.panelParsedData.Controls.Add(*this.textboxFormattedPhoneNumber)
+		*this.panelParsedData.Controls.Add(*this.textboxSubscriber)
+		*this.panelParsedData.Controls.Add(*this.label5)
+		*this.panelParsedData.Controls.Add(*this.label11)
+		*this.panelParsedData.Controls.Add(*this.textboxDigitsOnly)
+		*this.panelParsedData.Controls.Add(*this.label10)
+		*this.panelParsedData.Controls.Add(*this.label6)
+		*this.panelParsedData.Controls.Add(*this.textboxFormatWithExtension)
+		*this.panelParsedData.Controls.Add(*this.textboxExtension)
+		*this.panelParsedData.Controls.Add(*this.label9)
+		*this.panelParsedData.Controls.Add(*this.label7)
+		*this.panelParsedData.Controls.Add(*this.label8)
+		*this.panelParsedData.Controls.Add(*this.textboxFormatWithoutExtension)
+		*this.panelParsedData.Location = *new System.Drawing.Point(53I, 368I)
+		*this.panelParsedData.Name = "panelParsedData"
+		*this.panelParsedData.Size = *new System.Drawing.Size(952I, 550I)
+		*this.panelParsedData.TabIndex = 25I
+		*this.panelParsedData.Visible = *False
+		//
+		//Form1
+		//
+		*this.AutoScaleDimensions = *new System.Drawing.SizeF(144, 144)
+		*this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
+		*this.ClientSize = *new System.Drawing.Size(1044I, 961I)
+		*this.Controls.Add(*this.panelParsedData)
+		*this.Controls.Add(*this.label14)
+		*this.Controls.Add(*this.labelErrorMessage)
+		*this.Controls.Add(*this.label2)
+		*this.Controls.Add(*this.buttonFormatPhoneNumber)
+		*this.Controls.Add(*this.label1)
+		*this.Controls.Add(*this.textboxPhoneNumber)
+		*this.Font = *new System.Drawing.Font("Microsoft Sans Serif", 12, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (0 *As System.Byte))
+		*this.Name = "Form1"
+		*this.Text = "Telephone number entry"
+		*this.panelParsedData.ResumeLayout(*False)
+		*this.panelParsedData.PerformLayout()
+		*this.ResumeLayout(*False)
+		*this.PerformLayout()
+	EndSr
+	
+	DclFld label1 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld buttonFormatPhoneNumber Type(System.Windows.Forms.Button) Access(*Private) WithEvents(*Yes)
+	DclFld label2 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld textboxPhoneNumber Type(System.Windows.Forms.TextBox) Access(*Private) WithEvents(*Yes)
+	DclFld label3 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label4 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label5 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label6 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label7 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld textboxAreaCode Type(System.Windows.Forms.TextBox) Access(*Private) WithEvents(*Yes)
+	DclFld textboxExchange Type(System.Windows.Forms.TextBox) Access(*Private) WithEvents(*Yes)
+	DclFld textboxSubscriber Type(System.Windows.Forms.TextBox) Access(*Private) WithEvents(*Yes)
+	DclFld textboxExtension Type(System.Windows.Forms.TextBox) Access(*Private) WithEvents(*Yes)
+	DclFld textboxDigitsOnly Type(System.Windows.Forms.TextBox) Access(*Private) WithEvents(*Yes)
+	DclFld label8 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label9 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label10 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld textboxFormatWithoutExtension Type(System.Windows.Forms.TextBox) Access(*Private) WithEvents(*Yes)
+	DclFld textboxFormatWithExtension Type(System.Windows.Forms.TextBox) Access(*Private) WithEvents(*Yes)
+	DclFld label11 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld labelErrorMessage Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label12 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld textboxFormattedPhoneNumber Type(System.Windows.Forms.TextBox) Access(*Private) WithEvents(*Yes)
+	DclFld label13 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld label14 Type(System.Windows.Forms.Label) Access(*Private) WithEvents(*Yes)
+	DclFld panelParsedData Type(System.Windows.Forms.Panel) Access(*Private) WithEvents(*Yes)
+	//Required by the Windows Form Designer
+	DclFld components Type(System.ComponentModel.IContainer) Inz(*Nothing)
+	
+	// Clean up any resources being used.
+	// "disposing" is true if managed resources should be disposed; otherwise, false.
+	BegSr Dispose Access(*Protected) Modifier(*Overrides)
+		DclSrParm disposing Type(*Boolean)
+
+		If (disposing *And (components *NE *Nothing))
+			components.Dispose()
+		EndIf
+			
+		*Base.Dispose(disposing)
+	EndSr
+	
+EndClass

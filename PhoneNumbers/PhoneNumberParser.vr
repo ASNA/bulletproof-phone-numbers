@@ -1,0 +1,89 @@
+﻿Using System
+Using System.Text.RegularExpressions
+
+BegClass PhoneNumberParser
+    // A class to parse a phone number entered with _any_ format.
+    // The default minimum digits is 10. 
+
+    DclProp PhoneNumberAsString Type(*String) Access(*Public)
+    DclProp DigitsOnly Type(*String) Access(*Public) 
+    DclProp Extension Type(*Integer4) Access(*Public)
+    DclProp FormattedPhoneNumber Type(*String) Access(*Public) 
+    DclProp InputFormatError Type(*Boolean) Access(*Public)
+    DclProp OutputFormatWithoutExtension Type(*String) Access(*Public) 
+    DclProp OutputFormatWithExtension Type(*String) Access(*Public) 
+    DclProp MinimumDigitsLength Type(*Integer4)
+
+    // Note--these are convenience fields for American phone numbers only. 
+    // These apply mostly to Mexico, US and its territories, and Candada.
+    DclProp AreaCode Type(*Integer4) Access(*Public)
+    DclProp Exchange Type(*Integer4) Access(*Public)
+    DclProp Subscriber Type(*Integer4) Access(*Public)
+
+    DclConst DEFAULT_OUTPUT_FORMAT_WITHOUT_EXTENSION '{0:(###)} {1:###}-{2:####}'
+    DclConst DEFAULT_OUTPUT_FORMAT_WITH_EXTENSION '{0:(###)} {1:###}-{2:####} Ext. {3}'
+    DclConst NORTH_AMERICAN_MINIMUM_DIGITS 10 
+
+    // Default constructor. 
+    BegConstructor Access(*Public) 
+        *This.OutputFormatWithoutExtension = DEFAULT_OUTPUT_FORMAT_WITHOUT_EXTENSION
+        *This.OutputFormatWithExtension = DEFAULT_OUTPUT_FORMAT_WITH_EXTENSION
+        *This.MinimumDigitsLength = NORTH_AMERICAN_MINIMUM_DIGITS 
+    EndConstructor 
+
+    // Override output formats. 
+    BegConstructor Access(*Public) 
+        DclSrParm OutputFormatWithoutExtension Type(*String) 
+        DclSrParm OutputFormatWithExtension Type(*String) 
+
+        *This.OutputFormatWithoutExtension = OutputFormatWithoutExtension
+        *This.OutputFormatWithExtension = OutputFormatWithExtension 
+    EndConstructor 
+
+    // Override output formats and minimum digits length.
+    BegConstructor Access(*Public) 
+        DclSrParm OutputFormatWithoutExtension Type(*String) 
+        DclSrParm OutputFormatWithExtension Type(*String) 
+        DclSrParm MinimumDigitsLength Type(*Integer4) 
+
+        *This.OutputFormatWithoutExtension = OutputFormatWithoutExtension
+        *This.OutputFormatWithExtension = OutputFormatWithExtension 
+        *This.MinimumDigitsLength = MinimumDigitsLength        
+    EndConstructor 
+    
+    BegFunc RemoveNonDigitsFromString Type(*String) 
+        DclSrParm InputString Type(*String) 
+
+        LeaveSr Regex.Replace(InputString, '\D', String.Empty) 
+    EndFunc 
+
+    BegSr ParsePhoneNumber Access(*Public) 
+        DclSrParm PhoneNumberAsEntered Type(*String) 
+
+        *This.InputFormatError = *False
+        
+        // Note how the process of removing non-digits was moved to a function. 
+        // This makes the code self-documenting. At least 75% when you write a 
+        // comment you should be writing a routine! 
+        *This.DigitsOnly = RemoveNonDigitsFromString(PhoneNumberAsEntered)
+        If DigitsOnly.Length < 10 
+            *This.InputFormatError = *True 
+            LeaveSr 
+        EndIf 
+
+        // Note--these are convenience fields for American phone numbers only. 
+        *This.AreaCode = DigitsOnly.Substring(0,3)
+        *This.Exchange = DigitsOnly.Substring(3,3)
+        *This.SubScriber = DigitsOnly.Substring(6,4) 
+        
+        If *This.DigitsOnly > 10         
+            *This.Extension = DigitsOnly.Substring(10) 
+            *This.FormattedPhoneNumber = String.Format(*This.OutputFormatWithExtension, *This.AreaCode, *This.Exchange, *This.Subscriber, *This.Extension) 
+        Else 
+            *This.FormattedPhoneNumber = String.Format(*This.OutputFormatWithoutExtension, *This.AreaCode, *This.Exchange, *This.Subscriber) 
+        EndIf 
+    EndSr
+
+
+EndClass 
+

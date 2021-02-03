@@ -1,0 +1,174 @@
+﻿Using System
+Using System.Text
+Using System.Text.RegularExpressions
+Using System.Windows.Forms
+
+BegClass Form1 Extends(System.Windows.Forms.Form) Access(*Public) Partial(*Yes)
+
+    /region Default Constructor
+    
+    BegConstructor Access(*Public)
+        //
+        // Required for Windows Form Designer support
+        //
+        InitializeComponent()
+
+        //
+        // TODO: Add any constructor code after InitializeComponent call
+        //
+    EndConstructor
+
+    /endregion
+
+    // The core concept used here is that the user can enter a telephone number 
+    // in _any_ format. The only restriction is that the characters entered 
+    // must contain a minimum number of digits (10 is the default minimum characters
+    // allowed).
+        
+    // All non-numeric characters (including spaces) are removed from the user-entered
+    // phone number. 
+
+    // It's very easy using a simple regular expression to remove alll non-digits. See
+    // the notes in the code below. 
+
+    // Any digits entered over the allowed minimum are assumed to be an extension. 
+    
+    // Two format strings are used to render the phone number; one with an extension 
+    // and one without. 
+
+    // '{0:(###)} {1:###}-{2:####}'
+    // '{0:(###)} {1:###}-{2:####} Ext. {3}'
+
+    // Format strings are region-specific (and to a degree, company-specific. Some companies may 
+    // want to use something other than 'Ext.' to denote an extension. The default format 
+    // strings work with most American phone numbers. 
+
+    // Read this for more on String.Format and its formatting strings:
+    // https://docs.microsoft.com/en-us/dotnet/api/system.string.format?view=netframework-4.8
+
+    // Normally, you'd store the digits-only value as a string in the database. Upon fetching 
+    // it, it would be rendered with its default formatting string. 
+
+    // As a convenience for North American phone numbers 
+
+    // Most North American phone numbers comprise an area code, and exchange, and a subscriber number.
+    // Given this phone number '(402) 290-2002 Ext. 1234':
+    //   402 = area code
+    //   290 = exchange
+    //  2002 = subscriber number
+
+    // After removing all digits, it's an easy task to fetch the parts of the phone number with 
+    // a substring operation. 
+    // ordinal zero-based position 01234567890123 
+    // value                       40229020021234
+
+    // 0-2 = area code
+    // 3-5 = exchange
+    // 6-9 = subscriber number
+    // Anything after the zero-based 9th digit is assumed to be the extension.
+    
+    BegSr Form1_Load Access(*Private) Event(*this.Load)
+        DclSrParm sender *Object
+        DclSrParm e System.EventArgs
+
+        textboxPhoneNumber.Text = '(402) 290-2002 Ext. 1234'
+        
+        // Occurs when form is first loaded.
+        // Put form "startup" code here (ie open files).
+    EndSr
+
+    BegSr Form1_FormClosing Access(*Private) Event(*this.FormClosing)
+        DclSrParm sender Type(*Object)
+        DclSrParm e Type(System.Windows.Forms.FormClosingEventArgs)
+        
+        // Occurs when form is closing.    
+        // Put form "housecleaning" code here (ie close files).
+    EndSr
+
+    BegSr buttonFormatPhoneNumber_Click Access(*Private) Event(*this.buttonFormatPhoneNumber.Click)
+        DclSrParm sender Type(*Object)
+        DclSrParm e Type(System.EventArgs)
+
+        // The old-school way
+        // This is an in-line way to do things. I think it's a bad way to do it. 
+        // But, looking at first may add to the comprehension of what's happening.
+        ParsePhoneNumber(textboxPhoneNumber.Text) 
+
+
+        // After you've messed with the ParsePhoneNumber routine, comment the line above 
+        // out and comment out the LeaveSr below to see a better way to do it. 
+
+        LeaveSr 
+        // The new-school way
+        // This way puts takes a little more code but it is independent of the UI. 
+        // This makes it easier to test and the class can be used with both 
+        // Windows and Web apps. 
+        DclFld phone Type(PhoneNumberParser) New(textboxFormatWithoutExtension.Text, textboxFormatWithExtension.Text) 
+
+        phone.ParsePhoneNumber(textboxPhoneNumber.Text) 
+        If phone.InputFormatError 
+            labelErrorMessage.Visible = *True
+        Else
+            labelErrorMessage.Visible = *False
+
+            textboxAreaCode.Text = phone.AreaCode
+            textboxExchange.Text = phone.Exchange
+            textboxSubscriber.Text = phone.Subscriber
+            textboxExtension.Text = phone.Extension 
+
+            textboxDigitsOnly.Text = phone.DigitsOnly
+            textboxFormattedPhoneNumber.Text = phone.FormattedPhoneNumber
+        EndIf 
+    EndSr
+    
+    BegSr ParsePhoneNumber
+        DclSrParm PhoneNumberAsEntered Type(*String) 
+
+        DclFld DigitsOnly Type(*String) 
+        DclFld AreaCode Type(*Integer4) 
+        DclFld Exchange Type(*Integer4) 
+        DclFld Subscriber Type(*Integer4) 
+        DclFld Extension Type(*Integer4) 
+
+        labelErrorMessage.Visible = *False
+
+        panelParsedData.Visible = *False
+        // \D is the regex character class for non-digits. 
+        // This removes all non-digit occurrences from the phone number.
+        DigitsOnly = Regex.Replace(PhoneNumberAsEntered, '\D', String.Empty) 
+        If DigitsOnly.Length < 10 
+            labelErrorMessage.Visible = *True 
+            panelParsedData.Visible = *False
+            LeaveSr 
+        EndIf 
+
+        panelParsedData.Visible = *True
+
+        // Pluck out the three fields you want. 
+        AreaCode = DigitsOnly.Substring(0,3)
+        Exchange = DigitsOnly.Substring(3,3)
+        SubScriber = DigitsOnly.Substring(6,4) 
+        
+        // If more than 10 digits then an extension is assumed.
+        If DigitsOnly.Length > 10         
+            Extension = DigitsOnly.Substring(10) 
+            textboxFormattedPhoneNumber.Text = String.Format(textboxFormatWithExtension.Text, AreaCode, Exchange, Subscriber, Extension) 
+        Else 
+            textboxFormattedPhoneNumber.Text = String.Format(textboxFormatWithoutExtension.Text, AreaCode, Exchange, Subscriber) 
+        EndIf 
+
+        // Show the values. 
+        textboxAreaCode.Text = AreaCode
+        textboxExchange.Text = Exchange
+        textboxSubscriber.Text = Subscriber
+        textboxExtension.Text = Extension 
+
+        // As a general rule, I would write the phone number to disk as all digits, probably with a long string, but 
+        // a large-enough numeric type would work as well. 
+        // Use String.Format with an appropriate mask. In the class below the two masks needed default to your desired format. 
+        textboxDigitsOnly.Text = DigitsOnly
+    EndSr
+    
+    
+EndClass
+

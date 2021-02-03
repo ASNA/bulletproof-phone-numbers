@@ -1,0 +1,12 @@
+node_modules
+*.dgie
+*.zip
+*.png
+*.exe
+*.pdb
+*.cache
+*.suo
+[Oo]bj
+[Bb]in
+[Dd]ebug
+[Bb]uild/
