@@ -20,16 +20,7 @@
       
     </div>
     <div class='code'>
-      <div class="highlight"><pre><span></span><span class="nx">Using</span> <span class="nx">System</span>
-<span class="nx">Using</span> <span class="nx">System</span><span class="p">.</span><span class="nx">Text</span>
-<span class="nx">Using</span> <span class="nx">System</span><span class="p">.</span><span class="nx">Text</span><span class="p">.</span><span class="nx">RegularExpressions</span>
-<span class="nx">Using</span> <span class="nx">System</span><span class="p">.</span><span class="nx">Windows</span><span class="p">.</span><span class="nx">Forms</span>
-
-<span class="nx">BegClass</span> <span class="nx">Form1</span> <span class="nx">Extends</span><span class="p">(</span><span class="nx">System</span><span class="p">.</span><span class="nx">Windows</span><span class="p">.</span><span class="nx">Forms</span><span class="p">.</span><span class="nx">Form</span><span class="p">)</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> <span class="nx">Partial</span><span class="p">(</span><span class="o">*</span><span class="nx">Yes</span><span class="p">)</span>
-
-    <span class="o">/</span><span class="nx">region</span> <span class="nx">Default</span> <span class="nx">Constructor</span>
-    
-    <span class="nx">BegConstructor</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span></pre></div>
+      <div class="highlight"><pre><span></span><span class="c1">// The core concept used here is that the user can enter a telephone number</span></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -38,10 +29,12 @@
       <div class='octowrap'>
         <a class='octothorpe' href='#section-1'>#</a>
       </div>
-      <p>Required for Windows Form Designer support</p>
+      <p>in <em>any</em> format. The only restriction is that the characters entered 
+must contain a minimum number of digits (10 is the default minimum characters
+allowed).</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>        <span class="nx">InitializeComponent</span><span class="p">()</span></pre></div>
+      <div class="highlight"><pre></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -50,12 +43,11 @@
       <div class='octowrap'>
         <a class='octothorpe' href='#section-2'>#</a>
       </div>
-      <p>TODO: Add any constructor code after InitializeComponent call</p>
+      <p>All non-numeric characters (including spaces) are removed from the user-entered
+phone number. </p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>    <span class="nx">EndConstructor</span>
-
-    <span class="o">/</span><span class="nx">endregion</span></pre></div>
+      <div class="highlight"><pre></pre></div>
     </div>
   </div>
   <div class='clearall'></div>
@@ -64,10 +56,8 @@
       <div class='octowrap'>
         <a class='octothorpe' href='#section-3'>#</a>
       </div>
-      <p>The core concept used here is that the user can enter a telephone number 
-in <em>any</em> format. The only restriction is that the characters entered 
-must contain a minimum number of digits (10 is the default minimum characters
-allowed).</p>
+      <p>It&rsquo;s very easy using a simple regular expression to remove alll non-digits. See
+the notes in the code below. </p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -79,8 +69,7 @@ allowed).</p>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-4'>#</a>
       </div>
-      <p>All non-numeric characters (including spaces) are removed from the user-entered
-phone number. </p>
+      <p>Any digits entered over the allowed minimum are assumed to be an extension. </p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -92,8 +81,8 @@ phone number. </p>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-5'>#</a>
       </div>
-      <p>It&rsquo;s very easy using a simple regular expression to remove alll non-digits. See
-the notes in the code below. </p>
+      <p>Two format strings are used to render the phone number; one with an extension 
+and one without. </p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -105,7 +94,8 @@ the notes in the code below. </p>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-6'>#</a>
       </div>
-      <p>Any digits entered over the allowed minimum are assumed to be an extension. </p>
+      <p>&lsquo;{0:(###)} {1:###}-{2:####}&rsquo;
+&lsquo;{0:(###)} {1:###}-{2:####} Ext. {3}&rsquo;</p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -117,8 +107,9 @@ the notes in the code below. </p>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-7'>#</a>
       </div>
-      <p>Two format strings are used to render the phone number; one with an extension 
-and one without. </p>
+      <p>Format strings are region-specific (and to a degree, company-specific. Some companies may 
+want to use something other than &lsquo;Ext.&rsquo; to denote an extension. The default format 
+strings work with most American phone numbers. </p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -130,8 +121,8 @@ and one without. </p>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-8'>#</a>
       </div>
-      <p>&lsquo;{0:(###)} {1:###}-{2:####}&rsquo;
-&lsquo;{0:(###)} {1:###}-{2:####} Ext. {3}&rsquo;</p>
+      <p>Read this for more on String.Format and its formatting strings:
+https://docs.microsoft.com/en-us/dotnet/api/system.string.format?view=netframework-4.8</p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -143,9 +134,8 @@ and one without. </p>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-9'>#</a>
       </div>
-      <p>Format strings are region-specific (and to a degree, company-specific. Some companies may 
-want to use something other than &lsquo;Ext.&rsquo; to denote an extension. The default format 
-strings work with most American phone numbers. </p>
+      <p>Normally, you&rsquo;d store the digits-only value as a string in the database. Upon fetching 
+it, it would be rendered with its default formatting string. </p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -157,8 +147,7 @@ strings work with most American phone numbers. </p>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-10'>#</a>
       </div>
-      <p>Read this for more on String.Format and its formatting strings:
-https://docs.microsoft.com/en-us/dotnet/api/system.string.format?view=netframework-4.8</p>
+      <p>As a convenience for North American phone numbers </p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -169,31 +158,6 @@ https://docs.microsoft.com/en-us/dotnet/api/system.string.format?view=netframewo
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-11'>#</a>
-      </div>
-      <p>Normally, you&rsquo;d store the digits-only value as a string in the database. Upon fetching 
-it, it would be rendered with its default formatting string. </p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-12'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-12'>#</a>
-      </div>
-      <p>As a convenience for North American phone numbers </p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
-  <div class='section' id='section-13'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-13'>#</a>
       </div>
       <p>Most North American phone numbers comprise an area code, and exchange, and a subscriber number.
 Given this phone number &lsquo;(402) 290-2002 Ext. 1234&rsquo;:
@@ -206,10 +170,10 @@ Given this phone number &lsquo;(402) 290-2002 Ext. 1234&rsquo;:
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-14'>
+  <div class='section' id='section-12'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-14'>#</a>
+        <a class='octothorpe' href='#section-12'>#</a>
       </div>
       <p>After removing all digits, it&rsquo;s an easy task to fetch the parts of the phone number with 
 a substring operation. 
@@ -221,10 +185,10 @@ value                       40229020021234</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-15'>
+  <div class='section' id='section-13'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-15'>#</a>
+        <a class='octothorpe' href='#section-13'>#</a>
       </div>
       <p>0-2 = area code
 3-5 = exchange
@@ -232,7 +196,44 @@ value                       40229020021234</p>
 Anything after the zero-based 9th digit is assumed to be the extension.</p>
     </div>
     <div class='code'>
-      <div class="highlight"><pre>    
+      <div class="highlight"><pre><span class="nx">Using</span> <span class="nx">System</span>
+<span class="nx">Using</span> <span class="nx">System</span><span class="p">.</span><span class="nx">Text</span>
+<span class="nx">Using</span> <span class="nx">System</span><span class="p">.</span><span class="nx">Text</span><span class="p">.</span><span class="nx">RegularExpressions</span>
+<span class="nx">Using</span> <span class="nx">System</span><span class="p">.</span><span class="nx">Windows</span><span class="p">.</span><span class="nx">Forms</span>
+
+<span class="nx">BegClass</span> <span class="nx">Form1</span> <span class="nx">Extends</span><span class="p">(</span><span class="nx">System</span><span class="p">.</span><span class="nx">Windows</span><span class="p">.</span><span class="nx">Forms</span><span class="p">.</span><span class="nx">Form</span><span class="p">)</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span> <span class="nx">Partial</span><span class="p">(</span><span class="o">*</span><span class="nx">Yes</span><span class="p">)</span>
+
+    <span class="o">/</span><span class="nx">region</span> <span class="nx">Default</span> <span class="nx">Constructor</span>
+    
+    <span class="nx">BegConstructor</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Public</span><span class="p">)</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-14'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-14'>#</a>
+      </div>
+      <p>Required for Windows Form Designer support</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>        <span class="nx">InitializeComponent</span><span class="p">()</span></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-15'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-15'>#</a>
+      </div>
+      <p>TODO: Add any constructor code after InitializeComponent call</p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre>    <span class="nx">EndConstructor</span>
+
+    <span class="o">/</span><span class="nx">endregion</span>
+
+    
     <span class="nx">BegSr</span> <span class="nx">Form1_Load</span> <span class="nx">Access</span><span class="p">(</span><span class="o">*</span><span class="nx">Private</span><span class="p">)</span> <span class="nx">Event</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">.</span><span class="nx">Load</span><span class="p">)</span>
         <span class="nx">DclSrParm</span> <span class="nx">sender</span> <span class="o">*</span><span class="nb">Object</span>
         <span class="nx">DclSrParm</span> <span class="nx">e</span> <span class="nx">System</span><span class="p">.</span><span class="nx">EventArgs</span>

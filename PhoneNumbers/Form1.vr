@@ -1,4 +1,51 @@
-﻿Using System
+﻿// The core concept used here is that the user can enter a telephone number 
+// in _any_ format. The only restriction is that the characters entered 
+// must contain a minimum number of digits (10 is the default minimum characters
+// allowed).
+    
+// All non-numeric characters (including spaces) are removed from the user-entered
+// phone number. 
+
+// It's very easy using a simple regular expression to remove alll non-digits. See
+// the notes in the code below. 
+
+// Any digits entered over the allowed minimum are assumed to be an extension. 
+
+// Two format strings are used to render the phone number; one with an extension 
+// and one without. 
+
+// '{0:(###)} {1:###}-{2:####}'
+// '{0:(###)} {1:###}-{2:####} Ext. {3}'
+
+// Format strings are region-specific (and to a degree, company-specific. Some companies may 
+// want to use something other than 'Ext.' to denote an extension. The default format 
+// strings work with most American phone numbers. 
+
+// Read this for more on String.Format and its formatting strings:
+// https://docs.microsoft.com/en-us/dotnet/api/system.string.format?view=netframework-4.8
+
+// Normally, you'd store the digits-only value as a string in the database. Upon fetching 
+// it, it would be rendered with its default formatting string. 
+
+// As a convenience for North American phone numbers 
+
+// Most North American phone numbers comprise an area code, and exchange, and a subscriber number.
+// Given this phone number '(402) 290-2002 Ext. 1234':
+//   402 = area code
+//   290 = exchange
+//  2002 = subscriber number
+
+// After removing all digits, it's an easy task to fetch the parts of the phone number with 
+// a substring operation. 
+// ordinal zero-based position 01234567890123 
+// value                       40229020021234
+
+// 0-2 = area code
+// 3-5 = exchange
+// 6-9 = subscriber number
+// Anything after the zero-based 9th digit is assumed to be the extension.
+
+Using System
 Using System.Text
 Using System.Text.RegularExpressions
 Using System.Windows.Forms
@@ -20,52 +67,6 @@ BegClass Form1 Extends(System.Windows.Forms.Form) Access(*Public) Partial(*Yes)
 
     /endregion
 
-    // The core concept used here is that the user can enter a telephone number 
-    // in _any_ format. The only restriction is that the characters entered 
-    // must contain a minimum number of digits (10 is the default minimum characters
-    // allowed).
-        
-    // All non-numeric characters (including spaces) are removed from the user-entered
-    // phone number. 
-
-    // It's very easy using a simple regular expression to remove alll non-digits. See
-    // the notes in the code below. 
-
-    // Any digits entered over the allowed minimum are assumed to be an extension. 
-    
-    // Two format strings are used to render the phone number; one with an extension 
-    // and one without. 
-
-    // '{0:(###)} {1:###}-{2:####}'
-    // '{0:(###)} {1:###}-{2:####} Ext. {3}'
-
-    // Format strings are region-specific (and to a degree, company-specific. Some companies may 
-    // want to use something other than 'Ext.' to denote an extension. The default format 
-    // strings work with most American phone numbers. 
-
-    // Read this for more on String.Format and its formatting strings:
-    // https://docs.microsoft.com/en-us/dotnet/api/system.string.format?view=netframework-4.8
-
-    // Normally, you'd store the digits-only value as a string in the database. Upon fetching 
-    // it, it would be rendered with its default formatting string. 
-
-    // As a convenience for North American phone numbers 
-
-    // Most North American phone numbers comprise an area code, and exchange, and a subscriber number.
-    // Given this phone number '(402) 290-2002 Ext. 1234':
-    //   402 = area code
-    //   290 = exchange
-    //  2002 = subscriber number
-
-    // After removing all digits, it's an easy task to fetch the parts of the phone number with 
-    // a substring operation. 
-    // ordinal zero-based position 01234567890123 
-    // value                       40229020021234
-
-    // 0-2 = area code
-    // 3-5 = exchange
-    // 6-9 = subscriber number
-    // Anything after the zero-based 9th digit is assumed to be the extension.
     
     BegSr Form1_Load Access(*Private) Event(*this.Load)
         DclSrParm sender *Object
