@@ -1,16 +1,18 @@
 ﻿
-// The core concept used here is that the user can enter a telephone number 
+
+// This ASNA Visual RPG example shows a way to handle telephone data 
+// entry. Although this example is specific to phone numbers, the concepts
+// it presents apply to other values such as credit card numbers, social
+// security numbers, and any other numeric value needing special formatting. 
+
+// The core concept presented here is that the user can enter a telephone number 
 // in _any_ format. The only restriction is that the characters entered 
 // must contain a minimum number of digits (10 is the default minimum characters
-// allowed).
-    
+// allowed, Any digits entered over the allowed minimum are assumed to be an 
+// extension. 
+
 // All non-numeric characters (including spaces) are removed from the user-entered
-// phone number. 
-
-// It's very easy using a simple regular expression to remove alll non-digits. See
-// the notes in the code below. 
-
-// Any digits entered over the allowed minimum are assumed to be an extension. 
+// phone number. A simple regular expression used to remove alll non-digits. 
 
 // Two format strings are used to render the phone number; one with an extension 
 // and one without. 
@@ -18,15 +20,17 @@
 // '{0:(###)} {1:###}-{2:####}'
 // '{0:(###)} {1:###}-{2:####} Ext. {3}'
 
-// Format strings are region-specific (and to a degree, company-specific. Some companies may 
-// want to use something other than 'Ext.' to denote an extension. The default format 
-// strings work with most American phone numbers. 
+// Format strings are region-specific (and to a degree, company-specific). Some 
+// companies may want to use something other than 'Ext.' to denote an extension. 
+// The default format strings work with most American phone numbers. 
 
 // Read this for more on String.Format and its formatting strings:
 // https://docs.microsoft.com/en-us/dotnet/api/system.string.format?view=netframework-4.8
 
 // Normally, you'd store the digits-only value as a string in the database. Upon fetching 
 // it, it would be rendered with its default formatting string. 
+
+
 
 // As a convenience for North American phone numbers 
 
