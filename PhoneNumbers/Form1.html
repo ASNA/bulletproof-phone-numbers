@@ -29,10 +29,7 @@
       <div class='octowrap'>
         <a class='octothorpe' href='#section-1'>#</a>
       </div>
-      <p>This ASNA Visual RPG example shows a way to handle telephone data 
-entry. Although this example is specific to phone numbers, the concepts
-it presents apply to other values such as credit card numbers, social
-security numbers, and any other numeric value needing special formatting. </p>
+      <p><img alt="" src="https://asna.com/media/images/phone-numbers-screen-shot-1.png" /></p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -43,6 +40,21 @@ security numbers, and any other numeric value needing special formatting. </p>
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-2'>#</a>
+      </div>
+      <p>This ASNA Visual RPG example shows a way to handle telephone data 
+entry. Although this example is specific to phone numbers, the concepts
+it presents apply to other values such as credit card numbers, social
+security numbers, and any other numeric value needing special formatting. </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-3'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-3'>#</a>
       </div>
       <p>The core concept presented here is that the user can enter a telephone number 
 in <em>any</em> format. The only restriction is that the characters entered 
@@ -55,26 +67,13 @@ extension. </p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-3'>
-    <div class='docs'>
-      <div class='octowrap'>
-        <a class='octothorpe' href='#section-3'>#</a>
-      </div>
-      <p>All non-numeric characters (including spaces) are removed from the user-entered
-phone number. A simple regular expression used to remove alll non-digits. </p>
-    </div>
-    <div class='code'>
-      <div class="highlight"><pre></pre></div>
-    </div>
-  </div>
-  <div class='clearall'></div>
   <div class='section' id='section-4'>
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-4'>#</a>
       </div>
-      <p>Two format strings are used to render the phone number; one with an extension 
-and one without. </p>
+      <p>All non-numeric characters (including spaces) are removed from the user-entered
+phone number. A simple regular expression used to remove alll non-digits. </p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -86,8 +85,8 @@ and one without. </p>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-5'>#</a>
       </div>
-      <p>&lsquo;{0:(###)} {1:###}-{2:####}&rsquo;
-&lsquo;{0:(###)} {1:###}-{2:####} Ext. {3}&rsquo;</p>
+      <p>Two format strings are used to render the phone number; one with an extension 
+and one without. </p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -99,9 +98,8 @@ and one without. </p>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-6'>#</a>
       </div>
-      <p>Format strings are region-specific (and to a degree, company-specific). Some 
-companies may want to use something other than &lsquo;Ext.&rsquo; to denote an extension. 
-The default format strings work with most American phone numbers. </p>
+      <p>&lsquo;{0:(###)} {1:###}-{2:####}&rsquo;
+&lsquo;{0:(###)} {1:###}-{2:####} Ext. {3}&rsquo;</p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -113,8 +111,9 @@ The default format strings work with most American phone numbers. </p>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-7'>#</a>
       </div>
-      <p>Read this for more on String.Format and its formatting strings:
-https://docs.microsoft.com/en-us/dotnet/api/system.string.format?view=netframework-4.8</p>
+      <p>Format strings are region-specific (and to a degree, company-specific). Some 
+companies may want to use something other than &lsquo;Ext.&rsquo; to denote an extension. 
+The default format strings work with most American phone numbers. </p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -126,8 +125,8 @@ https://docs.microsoft.com/en-us/dotnet/api/system.string.format?view=netframewo
       <div class='octowrap'>
         <a class='octothorpe' href='#section-8'>#</a>
       </div>
-      <p>Normally, you&rsquo;d store the digits-only value as a string in the database. Upon fetching 
-it, it would be rendered with its default formatting string. </p>
+      <p>Read this for more on String.Format and its formatting strings:
+https://docs.microsoft.com/en-us/dotnet/api/system.string.format?view=netframework-4.8</p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -139,7 +138,8 @@ it, it would be rendered with its default formatting string. </p>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-9'>#</a>
       </div>
-      <p>As a convenience for North American phone numbers </p>
+      <p>Normally, you&rsquo;d store the digits-only value as a string in the database. Upon fetching 
+it, it would be rendered with its default formatting string. </p>
     </div>
     <div class='code'>
       <div class="highlight"><pre></pre></div>
@@ -150,6 +150,18 @@ it, it would be rendered with its default formatting string. </p>
     <div class='docs'>
       <div class='octowrap'>
         <a class='octothorpe' href='#section-10'>#</a>
+      </div>
+      <p>As a convenience for North American phone numbers </p>
+    </div>
+    <div class='code'>
+      <div class="highlight"><pre></pre></div>
+    </div>
+  </div>
+  <div class='clearall'></div>
+  <div class='section' id='section-11'>
+    <div class='docs'>
+      <div class='octowrap'>
+        <a class='octothorpe' href='#section-11'>#</a>
       </div>
       <p>Most North American phone numbers comprise an area code, and exchange, and a subscriber number.
 Given this phone number &lsquo;(402) 290-2002 Ext. 1234&rsquo;:
@@ -162,10 +174,10 @@ Given this phone number &lsquo;(402) 290-2002 Ext. 1234&rsquo;:
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-11'>
+  <div class='section' id='section-12'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-11'>#</a>
+        <a class='octothorpe' href='#section-12'>#</a>
       </div>
       <p>After removing all digits, it&rsquo;s an easy task to fetch the parts of the phone number with 
 a substring operation. 
@@ -177,10 +189,10 @@ value                       40229020021234</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-12'>
+  <div class='section' id='section-13'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-12'>#</a>
+        <a class='octothorpe' href='#section-13'>#</a>
       </div>
       <p>0-2 = area code
 3-5 = exchange
@@ -201,10 +213,10 @@ Anything after the zero-based 9th digit is assumed to be the extension.</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-13'>
+  <div class='section' id='section-14'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-13'>#</a>
+        <a class='octothorpe' href='#section-14'>#</a>
       </div>
       <p>Required for Windows Form Designer support</p>
     </div>
@@ -213,10 +225,10 @@ Anything after the zero-based 9th digit is assumed to be the extension.</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-14'>
+  <div class='section' id='section-15'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-14'>#</a>
+        <a class='octothorpe' href='#section-15'>#</a>
       </div>
       <p>TODO: Add any constructor code after InitializeComponent call</p>
     </div>
@@ -234,10 +246,10 @@ Anything after the zero-based 9th digit is assumed to be the extension.</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-15'>
+  <div class='section' id='section-16'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-15'>#</a>
+        <a class='octothorpe' href='#section-16'>#</a>
       </div>
       <p>Occurs when form is first loaded.
 Put form &ldquo;startup&rdquo; code here (ie open files).</p>
@@ -251,10 +263,10 @@ Put form &ldquo;startup&rdquo; code here (ie open files).</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-16'>
+  <div class='section' id='section-17'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-16'>#</a>
+        <a class='octothorpe' href='#section-17'>#</a>
       </div>
       <p>Occurs when form is closing.  <br />
 Put form &ldquo;housecleaning&rdquo; code here (ie close files).</p>
@@ -268,10 +280,10 @@ Put form &ldquo;housecleaning&rdquo; code here (ie close files).</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-17'>
+  <div class='section' id='section-18'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-17'>#</a>
+        <a class='octothorpe' href='#section-18'>#</a>
       </div>
       <p>The old-school way
 This is an in-line way to do things. I think it&rsquo;s a bad way to do it. 
@@ -282,10 +294,10 @@ But, looking at first may add to the comprehension of what&rsquo;s happening.</p
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-18'>
+  <div class='section' id='section-19'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-18'>#</a>
+        <a class='octothorpe' href='#section-19'>#</a>
       </div>
       <p>After you&rsquo;ve messed with the ParsePhoneNumber routine, comment the line above 
 out and comment out the LeaveSr below to see a better way to do it. </p>
@@ -295,10 +307,10 @@ out and comment out the LeaveSr below to see a better way to do it. </p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-19'>
+  <div class='section' id='section-20'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-19'>#</a>
+        <a class='octothorpe' href='#section-20'>#</a>
       </div>
       <p>The new-school way
 This way puts takes a little more code but it is independent of the UI. 
@@ -339,10 +351,10 @@ Windows and Web apps. </p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-20'>
+  <div class='section' id='section-21'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-20'>#</a>
+        <a class='octothorpe' href='#section-21'>#</a>
       </div>
       <p>\D is the regex character class for non-digits. 
 This removes all non-digit occurrences from the phone number.</p>
@@ -359,10 +371,10 @@ This removes all non-digit occurrences from the phone number.</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-21'>
+  <div class='section' id='section-22'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-21'>#</a>
+        <a class='octothorpe' href='#section-22'>#</a>
       </div>
       <p>Pluck out the three fields you want. </p>
     </div>
@@ -373,10 +385,10 @@ This removes all non-digit occurrences from the phone number.</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-22'>
+  <div class='section' id='section-23'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-22'>#</a>
+        <a class='octothorpe' href='#section-23'>#</a>
       </div>
       <p>If more than 10 digits then an extension is assumed.</p>
     </div>
@@ -390,10 +402,10 @@ This removes all non-digit occurrences from the phone number.</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-23'>
+  <div class='section' id='section-24'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-23'>#</a>
+        <a class='octothorpe' href='#section-24'>#</a>
       </div>
       <p>Show the values. </p>
     </div>
@@ -405,10 +417,10 @@ This removes all non-digit occurrences from the phone number.</p>
     </div>
   </div>
   <div class='clearall'></div>
-  <div class='section' id='section-24'>
+  <div class='section' id='section-25'>
     <div class='docs'>
       <div class='octowrap'>
-        <a class='octothorpe' href='#section-24'>#</a>
+        <a class='octothorpe' href='#section-25'>#</a>
       </div>
       <p>As a general rule, I would write the phone number to disk as all digits, probably with a long string, but 
 a large-enough numeric type would work as well. 
